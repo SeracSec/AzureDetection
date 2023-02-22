@@ -31,7 +31,7 @@ def main():
 
     #Call function to check Office 365 presence and parse output
     office_presence = check_365_presence(domain)
-    if office_presence['NameSpaceType'] == 'Managed':
+    if office_presence['NameSpaceType'] != 'Unknown':
         print(Fore.GREEN + f'Microsoft Office 365 presence detected for {domain}' + Fore.RESET)
         print(f"Name Space Type: {office_presence['NameSpaceType']}")
         print(f"Domain Name: {office_presence['DomainName']}")
