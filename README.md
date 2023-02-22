@@ -9,8 +9,8 @@ I shall not be responsible or liable for any misuse or illegitimate use of this 
 # Installation
 
 ```
-   git clone https://github.com/SeracSec/AzureDetection.git
-   pip install -r requirements.txt
+git clone https://github.com/SeracSec/AzureDetection.git
+pip install -r requirements.txt
 ```
 
 # Usage
