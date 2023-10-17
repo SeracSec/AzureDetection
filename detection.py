@@ -71,15 +71,22 @@ def main():
     #Grab domain from command line arguments
     domain = check_params(sys.argv)
 
-    #Call function to check Office 365 presence and parse output
+    #Call function to check Microsoft 365 presence and parse output
     office_presence = check_365_presence(domain)
-    if office_presence['NameSpaceType'] != 'Unknown':
-        print(Fore.GREEN + f'Microsoft Office 365 presence detected for {domain}' + Fore.RESET)
-        print(f"Name Space Type: {office_presence['NameSpaceType']}")
-        print(f"Domain Name: {office_presence['DomainName']}")
-        print(f"Federation Brand Name: {office_presence['FederationBrandName']}")
+    if office_presence['NameSpaceType'] == 'Federated':
+       print(Fore.GREEN + f'Microsoft 365 presence detected for {domain}' + Fore.RESET)
+       print(f"Name Space Type: {office_presence['NameSpaceType']}")
+       print(f"Authentication URL: {office_presence['AuthURL']}")
+       print(f"Domain Name: {office_presence['DomainName']}")
+       print(f"Federation Brand Name: {office_presence['FederationBrandName']}")
+    elif office_presence['NameSpaceType'] != 'Unknown':
+       print(Fore.GREEN + f'Microsoft 365 presence detected for {domain}' + Fore.RESET)
+       print(f"Name Space Type: {office_presence['NameSpaceType']}")
+       print(f"Domain Name: {office_presence['DomainName']}")
+       print(f"Federation Brand Name: {office_presence['FederationBrandName']}")
     else:
-        print(Fore.RED + f'Microsoft Office 365 presence not detected for {domain}' + Fore.RESET)
+       print(Fore.RED + f'Microsoft 365 presence not detected for {domain}' + Fore.RESET)
+
 
     print('')
 
@@ -94,17 +101,17 @@ def main():
 
     print('') # Spacing
 
-    #Call function to check Azure AD presence and parse output
+    #Call function to check Entra ID presence and parse output
     azure_ad = check_azure_ad(domain)
     for returned_domain in azure_ad:
         if 'onmicrosoft.com' in returned_domain:
             azure_ad_domain = returned_domain
     if azure_ad_domain:
-        print(Fore.GREEN + f'Azure AD presence detected for {domain}' + Fore.RESET)
-        print(f"Azure AD Domain Name: {azure_ad_domain}")
+        print(Fore.GREEN + f'Entra ID presence detected for {domain}' + Fore.RESET)
+        print(f"Entra ID Domain Name: {azure_ad_domain}")
         print(f"Tenant Name: {azure_ad_domain.split('.')[0]}")
     else:
-        print(Fore.RED + f'Azure AD presence not detected for {domain}' + Fore.RESET) 
+        print(Fore.RED + f'Entra ID presence not detected for {domain}' + Fore.RESET) 
     
 if __name__ == '__main__':
     main()
